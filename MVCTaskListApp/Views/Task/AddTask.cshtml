@@ -1,0 +1,44 @@
+﻿@model MVCTaskListApp.Models.DoTask
+
+@{
+    ViewBag.Title = "AddTask";
+}
+
+@using (Html.BeginForm()) 
+{
+
+    <div class="form-horizontal">
+        <h2>Your Task List:</h2>
+        <p>Enter a task you would like to add to your list.</p>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <p>Enter a description of your task.</p>
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            <p>Enter a due date for your task (mm/dd/yyyy).</p>
+                @Html.EditorFor(model => model.DueDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DueDate, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            <div class="checkbox">
+                <p>
+                    @Html.EditorFor(model => model.Completed) Is your task completed?
+                </p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Add Task" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<p>Click here to @Html.ActionLink("View Your Task List", "ViewTask")</p>
+
