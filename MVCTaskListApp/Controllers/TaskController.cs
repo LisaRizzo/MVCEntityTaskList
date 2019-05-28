@@ -9,14 +9,31 @@ namespace MVCTaskListApp.Controllers
 {
     public class TaskController : Controller
     {
-        // GET: Task
-
+        private DbTasks dbt = new DbTasks();
+        [HttpGet]
         public ActionResult ViewTask()
         {
-            using (DbTasks dbt = new DbTasks())
+            return View(dbt.TaskAccount.ToList());
+        }
+
+        [HttpPost]
+        public ActionResult DeleteTask(FormCollection formCollection)
+        {
+            if (ModelState.IsValid)
             {
-                return View(dbt.TaskAccount.ToList());
+                using (DbTasks dbt = new DbTasks())
+                {
+                    string[] ids = formCollection["taskIdDelete"].Split(new char[] { ',' });
+                    foreach (string id in ids)
+                    {
+                        var task = dbt.TaskAccount.Find(int.Parse(id));
+                        dbt.TaskAccount.Remove(task);
+                        dbt.SaveChanges();
+                    }
+                }
             }
+
+            return RedirectToAction("ViewTask");
         }
 
         public ActionResult AddTask()

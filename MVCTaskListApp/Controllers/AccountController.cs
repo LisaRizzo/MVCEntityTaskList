@@ -10,7 +10,6 @@ namespace MVCTaskListApp.Controllers
 {
     public class AccountController : Controller
     {
-        // GET: Account
         public ActionResult Register()
         {
             return View();

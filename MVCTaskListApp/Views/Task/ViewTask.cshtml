@@ -5,35 +5,44 @@
 }
 
 <h2>Your Task List:</h2>
+@using (Html.BeginForm())
+{
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DueDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Completed)
-        </th>
-        <th></th>
-    </tr>
+    <br />
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DueDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Completed)
+            </th>
+            <th>
+                <input type="submit" value="DeleteTask" onclick="return confirm('Are you sure?')" />
+            </th>
+        </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DueDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Completed)
-        </td>
-    </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DueDate)
+                </td>
+                <td>
+                    @item.Completed
+                </td>
+                <td>
+                    <input type="checkbox" class="chkCheckBoxId" value="@item.Id" name="taskIdDelete" />
+                </td>
+
+            </tr>
+        }
+    </table>
 }
-
-</table>
-
-<p>Click here to @Html.ActionLink("Add A Task", "AddTask")</p>
+    <p>Click here to @Html.ActionLink("Add A Task", "AddTask")</p>
